@@ -1,12 +1,11 @@
-'use client'
 import React from 'react';
 
-const page = () => {
+const Navbar = () => {
     return (
         <div>
-            <h2>page home</h2>
+            <h2>navbar</h2>
         </div>
     );
 };
 
-export default page;
+export default Navbar;
