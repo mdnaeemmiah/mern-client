@@ -1,8 +1,6 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Button, Row } from "antd";
-import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { useAppDispatch } from "@/redux/hooks";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
@@ -10,6 +8,10 @@ import { setUser, TUser } from "@/redux/features/auth/authSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { verifyToken } from "@/utils/veryfyToken";
+import img from "../../app/assets/Group 47726.png";
+import Image from "next/image";
+import { useForm, Controller } from "react-hook-form";
+import { Button, Row } from "antd";
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +24,11 @@ const Register = () => {
     const toastId = toast.loading("Registering...");
 
     try {
-      const res = await register({ name: data.name, email: data.email, password: data.password }).unwrap();
+      const res = await register({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      }).unwrap();
 
       if (!res?.data?.accessToken) {
         throw new Error("No accessToken received");
@@ -40,8 +46,13 @@ const Register = () => {
 
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <div>
+        <Image src={img} alt="My Logo" width={400} height={400}></Image>
+      </div>
       <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-2xl">
-        <h2 className="text-2xl font-semibold text-center text-gray-700">Register</h2>
+        <h2 className="text-2xl font-semibold text-center text-gray-700">
+          Register
+        </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Controller
@@ -104,15 +115,6 @@ const Register = () => {
           </Link>
         </p>
       </div>
-      <div
-        className="w-1/2 h-full hidden md:block rounded-r-lg"
-        style={{
-          backgroundImage: `url('https://res.cloudinary.com/dh20zdtys/image/upload/v1723790098/aa0dd710d59f69addf9c35baedbd81af_sdm8wz.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "80vh",
-        }}
-      ></div>
     </Row>
   );
 };
